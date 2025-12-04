@@ -18,12 +18,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         include:
           - stack: base
             version: bookworm
           - stack: golang
             version: 1.25-bookworm
+          - stack: frontend
+            version: node20
     permissions:
       contents: read
       packages: write
@@ -38,12 +41,12 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ env.STACK }}
+          images: ${{ env.REGISTRY }}/${{ matrix.stack }}
           tags: |
-            type=raw,value=${{ env.VERSION }}
-            type=raw,value=${{ env.VERSION }}-${{ github.ref_name }},enable=${{ startsWith(github.ref, 'refs/heads/') && github.ref != 'refs/heads/main' }}
+            type=raw,value=${{ matrix.version }}
+            type=raw,value=${{ matrix.version }}-${{ github.ref_name }},enable=${{ startsWith(github.ref, 'refs/heads/') && github.ref != 'refs/heads/main' }}
             type=ref,event=tag
-            type=raw,value=${{ env.VERSION }}-${{ github.ref_name }},enable=${{ startsWith(github.ref, 'refs/tags/') }}
+            type=raw,value=${{ matrix.version }}-${{ github.ref_name }},enable=${{ startsWith(github.ref, 'refs/tags/') }}
             type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
 
       - name: Set up QEMU
@@ -64,7 +67,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: docker/${{ env.STACK }}/${{ env.VERSION }}/Dockerfile
+          file: docker/${{ matrix.stack }}/${{ matrix.version }}/Dockerfile
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
