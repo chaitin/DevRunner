@@ -20,10 +20,17 @@ Base container images for Chaitin MonkeyCode developer workflows.
 - Push to GHCR: `PUSH=true REGISTRY=ghcr.io/chaitin/monkeycode-runner STACK=golang VERSION=1.25-bookworm ./scripts/build.sh`
 - Run: `docker run --rm -it ghcr.io/chaitin/monkeycode-runner/golang:1.25-bookworm bash`
 
+## Rust image (1.91-bookworm)
+- Dockerfile: `docker/rust/1.91-bookworm/Dockerfile` (extends the base image, installs Rust 1.91.1 via the official tarball with checksum verification).
+- Build locally: `STACK=rust VERSION=1.91-bookworm ./scripts/build.sh`
+- Push to GHCR: `PUSH=true REGISTRY=ghcr.io/chaitin/monkeycode-runner STACK=rust VERSION=1.91-bookworm ./scripts/build.sh`
+- Run: `docker run --rm -it ghcr.io/chaitin/monkeycode-runner/rust:1.91-bookworm rustc --version`
+
 ## Layout
 - `docker/base/bookworm/Dockerfile` – base image definition.
 - `docker/frontend/node20/Dockerfile` – Node.js frontend developer image.
 - `docker/golang/1.25-bookworm/Dockerfile` – Go developer image (bookworm + Go 1.25).
+- `docker/rust/1.91-bookworm/Dockerfile` – Rust developer image (bookworm + Rust 1.91).
 - `scripts/build.sh` – helper to build/push images (env-driven: STACK, VERSION, REGISTRY, PUSH).
 - `docs/` – docs placeholder for future stacks and CI notes.
 

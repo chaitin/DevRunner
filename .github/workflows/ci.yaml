@@ -27,6 +27,8 @@ jobs:
             version: 1.25-bookworm
           - stack: frontend
             version: node20
+          - stack: rust
+            version: 1.91-bookworm
     permissions:
       contents: read
       packages: write
