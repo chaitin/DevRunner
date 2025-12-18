@@ -1,5 +1,5 @@
 # Stage that just provides an initialized CA trust store so HTTPS mirrors work
-FROM debian:bookworm AS base-ca
+FROM debian:bookworm-slim AS base-ca
 RUN apt-get update \
     && apt-get install -y --no-install-recommends ca-certificates \
     && rm -rf /var/lib/apt/lists/*
