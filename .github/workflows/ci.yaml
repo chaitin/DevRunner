@@ -13,8 +13,11 @@ on:
 
 env:
   REGISTRY: ghcr.io/chaitin/monkeycode-runner
-  DEBIAN_MIRROR: https://mirrors.tuna.tsinghua.edu.cn/debian
-  DEBIAN_SECURITY_MIRROR: https://mirrors.tuna.tsinghua.edu.cn/debian-security
+  # Default to TUNA mirrors (optimized for mainland China/Asia). You can override these
+  # per repo/org by defining GitHub variables DEBIAN_MIRROR and DEBIAN_SECURITY_MIRROR
+  # if runners are primarily located elsewhere and builds are slow.
+  DEBIAN_MIRROR: ${{ vars.DEBIAN_MIRROR || 'https://mirrors.tuna.tsinghua.edu.cn/debian' }}
+  DEBIAN_SECURITY_MIRROR: ${{ vars.DEBIAN_SECURITY_MIRROR || 'https://mirrors.tuna.tsinghua.edu.cn/debian-security' }}
 
 jobs:
   build:
