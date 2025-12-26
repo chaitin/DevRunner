@@ -40,6 +40,7 @@ RUN apt-get update \
         procps \
         python3 \
         python3-pip \
+        ripgrep \
     && ln -sf /usr/bin/vim.tiny /usr/bin/vim \
     && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
     && locale-gen \
