@@ -17,6 +17,7 @@ ARG DEBIAN_SECURITY_MIRROR="https://security.debian.org/debian-security"
 
 COPY --from=base-ca /etc/ssl/certs/ /etc/ssl/certs/
 COPY --from=base-ca /usr/share/ca-certificates/ /usr/share/ca-certificates/
+COPY docker/base/bookworm/certs/chaitin-ltd-root-ca.crt /usr/local/share/ca-certificates/chaitin-ltd-root-ca.crt
 
 RUN set -eux; \
     printf 'deb %s bookworm main contrib non-free non-free-firmware\n' "${DEBIAN_MIRROR}" > /etc/apt/sources.list; \
@@ -30,6 +31,7 @@ RUN apt-get update \
         locales \
         curl \
         git \
+        git-lfs \
         gnupg \
         build-essential \
         pkg-config \
@@ -58,6 +60,7 @@ RUN apt-get update \
     && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
     && locale-gen \
     && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 \
+    && update-ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /workspace

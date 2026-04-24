@@ -3,7 +3,7 @@
 Base container images for Chaitin MonkeyCode developer workflows.
 
 ## Base image (bookworm)
-- Dockerfile: `docker/base/bookworm/Dockerfile` (Debian bookworm-slim, git/curl/build-essential/python3/gh, en_US.UTF-8 locale, default user root).
+- Dockerfile: `docker/base/bookworm/Dockerfile` (Debian bookworm-slim, git/git-lfs/curl/build-essential/python3/gh, Chaitin root CA, en_US.UTF-8 locale, default user root).
 - Build locally: `STACK=base VERSION=bookworm ./scripts/build.sh`
 - Push to GHCR: `PUSH=true REGISTRY=ghcr.io/chaitin/monkeycode-runner STACK=base VERSION=bookworm ./scripts/build.sh` (needs `docker login ghcr.io`).
 - Override apt mirrors by setting `DEBIAN_MIRROR` / `DEBIAN_SECURITY_MIRROR` before building.
@@ -28,6 +28,7 @@ Base container images for Chaitin MonkeyCode developer workflows.
 - **Node.js 22.22.0**: with Corepack (pnpm, yarn enabled)
 - **Python 3.11**: with pip (PIP_BREAK_SYSTEM_PACKAGES enabled)
   - Pre-installed packages: requests, flask, django, beautifulsoup4, scrapy
+- **Git LFS**: inherited from the base image and available as `git-lfs`
 - **Diagnostic tools**: htop, iputils-ping, iproute2, wget
 
 ### Example Usage:
@@ -39,6 +40,7 @@ docker run --rm -it -v $(pwd):/workspace ghcr.io/chaitin/monkeycode-runner/devbo
 go version      # Go 1.25.6
 node --version  # v22.22.0
 python3 --version  # 3.11.x
+git-lfs --version
 npm install     # Works with Corepack enabled
 python3 -c "import requests; print('requests:', requests.__version__)"  # 2.32.5
 python3 -c "import flask; print('flask:', flask.__version__)"  # 3.1.2
