@@ -52,12 +52,12 @@ ENV PATH_PREFIX=/ \
 
 
 ## USER
-ENV PGID=1000 \
-    PUID=1000 \
+ENV PGID=0 \
+    PUID=0 \
     ROOT_PASSWORD=password \
-    HOME=/home/devbox
-RUN useradd -m -U -u 1000 -d "$HOME" -s /bin/bash devbox && \
-    usermod -aG users devbox
+    HOME=/config
+RUN useradd -U -u 6006 -d "$HOME" kid && \
+    usermod -G users kid
 WORKDIR /
 
 

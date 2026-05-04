@@ -6,5 +6,5 @@ set -o pipefail
 s6-svwait /var/run/s6/services/tigervnc
 
 
-exec s6-setuidgid devbox /novnc/utils/launch.sh
+exec s6-setuidgid kid /novnc/utils/launch.sh
 

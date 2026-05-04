@@ -3,9 +3,9 @@
 set -eu
 set -o pipefail
 
-groupmod -o -g "$PGID" devbox
-usermod -o -u "$PUID" devbox
-echo "devbox:$ROOT_PASSWORD" | chpasswd
+groupmod -o -g "$PGID" kid
+usermod -o -u "$PUID" kid
+echo "kid:$ROOT_PASSWORD" | chpasswd
 echo "root:$ROOT_PASSWORD" | chpasswd
 
 
@@ -21,4 +21,4 @@ else
   mkdir -p "$HOME"
 fi
 
-chown devbox:devbox "$HOME"
+chown kid:kid "$HOME"
