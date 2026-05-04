@@ -10,6 +10,7 @@ sleep 3
 exec s6-setuidgid kid /usr/bin/google-chrome-stable \
     --no-sandbox \
     --remote-debugging-port=9222 \
+    --user-data-dir=/config/.chrome-debug-profile \
     --no-first-run \
     --window-position=0,0 \
     --window-size=1920,1080

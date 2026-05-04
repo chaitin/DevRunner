@@ -61,6 +61,18 @@ ENV PATH_PREFIX=/ \
     PAGE_TITLE=KDE
 
 
+## Browser Harness (for AI agent browser control)
+RUN apt install -y git curl && \
+    curl -LsSf https://astral.sh/uv/install.sh | sh && \
+    export PATH="/root/.local/bin:$PATH" && \
+    git clone https://github.com/browser-use/browser-harness /opt/browser-harness && \
+    cd /opt/browser-harness && \
+    uv tool install -e . && \
+    ln -sf /root/.local/bin/browser-harness /usr/local/bin/browser-harness
+ENV BU_CDP_URL=http://127.0.0.1:9222 \
+    PATH="/root/.local/bin:${PATH}"
+
+
 ## USER
 ENV PGID=0 \
     PUID=0 \
