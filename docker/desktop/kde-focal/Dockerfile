@@ -38,8 +38,8 @@ RUN apt install -y wget gnupg2 && \
 ## VNC
 RUN apt install -y tigervnc-standalone-server tigervnc-xorg-extension
 ENV DISPLAY=:0 \
-    SCR_WIDTH=1600 \
-    SCR_HEIGHT=900
+    SCR_WIDTH=1920 \
+    SCR_HEIGHT=1080
 EXPOSE 5900
 
 
