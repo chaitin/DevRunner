@@ -24,6 +24,16 @@ RUN apt install -y dbus-x11
 ## Other Applications
 RUN apt install -y dolphin konsole
 
+## Google Chrome
+RUN apt install -y wget gnupg2 && \
+    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
+    apt update && \
+    apt install -y google-chrome-stable && \
+    sed -i 's|Exec=/usr/bin/google-chrome-stable|Exec=/usr/bin/google-chrome-stable --no-sandbox|g' /usr/share/applications/google-chrome.desktop && \
+    update-alternatives --set x-www-browser /usr/bin/google-chrome-stable && \
+    update-alternatives --set gnome-www-browser /usr/bin/google-chrome-stable
+
 
 ## VNC
 RUN apt install -y tigervnc-standalone-server tigervnc-xorg-extension
