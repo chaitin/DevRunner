@@ -11,6 +11,5 @@ exec s6-setuidgid kid /usr/bin/google-chrome-stable \
     --no-sandbox \
     --remote-debugging-port=9222 \
     --no-first-run \
-    --user-data-dir=/config/.config/google/chrome/user-data \
     --window-position=0,0 \
     --window-size=1920,1080
