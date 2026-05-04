@@ -22,7 +22,7 @@ RUN apt install -y dbus-x11
 
 
 ## Other Applications
-RUN apt install -y dolphin konsole
+RUN apt install -y dolphin konsole screen
 
 ## Google Chrome
 RUN apt install -y wget gnupg2 && \
