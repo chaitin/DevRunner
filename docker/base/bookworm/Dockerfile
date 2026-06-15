@@ -37,6 +37,7 @@ RUN apt-get update \
         zip \
         less \
         vim-tiny \
+        podman \
         procps \
         python3 \
         python3-pip \
